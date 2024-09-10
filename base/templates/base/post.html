@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<p> {{thread.title}} </p>
+
+<a href={% url 'update-post' post.post_id  %}?thread={{thread.post_id}}>Edit</a>
+<a href={% url 'delete-post' post.post_id %}?thread={{thread.post_id}}>Delete</a>
+
+<h3>@{{post.author}}</h3>
+
+<h1>{{post.title}}</h1>
+
+<h2> {{post.content}} </h2>
+
+{% endblock %}

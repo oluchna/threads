@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<hr>
+<form method="GET" action="{% url 'thread' thread.post_id %}">
+    <input type="text" name="p" placeholder="Search posts..." />
+</form>
+<hr>
+{% if request.user == thread.author %}
+<a href={% url 'update-thread' thread.post_id %}>Edit</a>
+<a href={% url 'delete-post' thread.post_id %}>Delete</a>
+{%endif %}
+<small>@{{thread.author}}</small>
+
+<h1>{{thread.title}}</h1>
+
+<h2> {{thread.content}} </h2>
+
+<small>
+    {% for tag in thread.tag.all %}
+    {{tag}}
+    {% endfor %}
+</small>
+<hr>
+
+{% if posts_count == 0 %}
+    <h5>No posts available</h5>
+{% else %}
+    <h5>Posts available {{posts_count}}</h5>
+{% endif %}
+
+<a href="{%url 'create-post'%}?thread={{thread.post_id}}"> Create post </a>
+    {% if posts %}
+    <div>
+        {% for post in posts %}
+        <div>
+            <h3>@{{post.author}}</h3>
+            {% if request.user == post.author %}
+            <a href={% url 'update-post' post.post_id  %}?thread={{thread.post_id}}>Edit</a>
+            <a href={% url 'delete-post' post.post_id %}?thread={{thread.post_id}}>Delete</a>
+            {%endif %}
+            <h5>{{post.post_id}} --- <a href="{% url 'post' thread.post_id post.post_id %}">{{post.title}}</a></h5>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}
