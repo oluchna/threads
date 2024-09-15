@@ -12,5 +12,72 @@
 <h1>{{post.title}}</h1>
 
 <h2> {{post.content}} </h2>
+<hr>
+
+<div id="comment-wrapper" class="comment-wrapper">
+    Comments
+    <hr>
+    <div id="comment-{{ post.post_id }}" post-id-data="{{ post.post_id }}" post-lvl="0">
+
+    </div>    
+    <p>{{post.post_id}}</p>
+    <button id="{{ post.post_id }}" data-offset="0" data-post-id="{{ post.post_id }}">Load comments ... </button>
+</div>
+
+<script>
+
+    const limit = 5;
+    {% comment %} const temp = document.getElementById("comments")
+    let postIda = temp.getAttribute("post-id-data") {% endcomment %}
+
+    {% comment %} document.getElementById('load-more-btn').style.display = 'none'; {% endcomment %}
+    function loadComments(button) {
+        let postId = button.getAttribute("data-post-id")
+        console.log("post id: ", postId)
+        let offset = parseInt(button.getAttribute('data-offset'));
+        console.log("offset: ", offset)
+        const url = `/load-more-comments/${postId}/?offset=${offset}`;
+        console.log("url: ", url)
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const commentsDiv = document.getElementById(`comment-${postId}`);
+                const parentlvl = parseInt(commentsDiv.getAttribute("post-lvl"))
+                data.comments.forEach(comment => {
+                    const commentHtml = `
+                        <div class="comment" id="comment-${comment.comment_id}" post-lvl=${parentlvl+1}>
+                            <strong>${comment.author}</strong>
+                            <strong>${comment.title}</strong>
+                            <p>${comment.content}</p>
+                            <button id="${comment.comment_id}" data-offset="0" data-post-id="${comment.comment_id}" style="visibility: ${comment.reply_count > 0 ? 'visible' : 'hidden'};"">Load comments ... </button>
+                            <hr>
+                        </div>
+                    `;
+                    commentsDiv.innerHTML += commentHtml;
+                });
+                
+                offset += limit;
+
+                if (data.more_comments) {
+                    document.getElementById(postId).style.display = 'block';
+                    button.setAttribute('data-offset', offset);
+
+                } else {
+                    document.getElementById(postId).style.display = 'none';
+                }
+            });
+    }
+    
+    document.getElementById("comment-wrapper").addEventListener('click', function(event) {
+        if (event.target && event.target.getAttribute("data-post-id")) {
+            console.log(event.target)
+            loadComments(event.target);
+        }
+    });
+    
+    // Załaduj pierwsze 5 komentarzy na starcie
+    {% comment %} loadComments(); {% endcomment %}
+
+    </script> 
 
 {% endblock %}

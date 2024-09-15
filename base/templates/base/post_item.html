@@ -1,0 +1,8 @@
+<div class="post" data-post-id="{{ post.post_id }}">
+    <p>{{ post.content }}</p>
+    {% if post.replies.count %}
+        <button class="load-more-replies" data-post-id="{{ post.post_id }}" data-offset="5">
+            Load {{ post.replies.count }} more replies
+        </button>
+    {% endif %}
+</div>
