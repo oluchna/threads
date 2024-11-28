@@ -24,6 +24,18 @@
 </small>
 <hr>
 
+<div>
+    <p>Participants</p>
+    {% for participant in participants%}
+    <small>@{{participant.username}}</small>
+    {% endfor %}
+</div>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <button type="submit"> + Join </button>
+</form>
+
 {% if posts_count == 0 %}
     <h5>No posts available</h5>
 {% else %}

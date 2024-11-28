@@ -1,14 +1,23 @@
+{% load static %}
+<div style="display:flex; align-items: center; flex-direction: row; justify-content:space-between; width:100%; height:40px; background-color:#FABC3F;">
+    
+    <a href="/" style="margin:1em; display:flex; align-items: center; flex-direction: row; text-decoration:none;">
+        <img src="{% static 'images/logo.png' %}" height="35" margin-right=0.5em>
+        <p style="margin-left:0.5em; color:#ffffff">threadify</p>
+        </a>
 
-<a href="/">LOGO</a>
-<hr width="100%" size="2">
+    <form method="GET" action="{% url 'home' %}">
+        <input type="text" name="q" placeholder="Search threads..." />
+    </form>
 
-<form method="GET" action="{% url 'home' %}">
-    <input type="text" name="q" placeholder="Search threads..." />
-</form>
+    <div style="display:flex; flex-direction: row; align-items: center; margin:1em ">
 
-{% if request.user.is_authenticated %}
-<p>Hello {{request.user}}</p>
-<a href="{% url 'logout' %}">Logout</a>
-{% else %}
-<a href='{% url "login" %}'> Login </a>
-{% endif %}
+    {% if request.user.is_authenticated %}
+    <p>Hello {{request.user}}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}"> Login </a>
+    {% endif %}
+
+    </div>
+</div>

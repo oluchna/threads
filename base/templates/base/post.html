@@ -2,29 +2,67 @@
 
 {% block content %}
 
-<p> {{thread.title}} </p>
+<div style="margin:2em">
+    <a href={% url 'thread' thread.post_id %}> &larr; {{thread.title}} </a>
+</div>
 
-<a href={% url 'update-post' post.post_id  %}?thread={{thread.post_id}}>Edit</a>
-<a href={% url 'delete-post' post.post_id %}?thread={{thread.post_id}}>Delete</a>
+<div>
+    <a href={% url 'update-post' post.post_id  %}?thread={{thread.post_id}}>Edit</a>
+    <a href={% url 'delete-post' post.post_id %}?thread={{thread.post_id}}>Delete</a>
 
-<h3>@{{post.author}}</h3>
+    <h3>@{{post.author}}</h3>
 
-<h1>{{post.title}}</h1>
+    <h1>{{post.title}}</h1>
 
-<h2> {{post.content}} </h2>
+    <h2> {{post.content}} </h2>
+</div>
 <hr>
 
 <div id="comment-wrapper" class="comment-wrapper">
     Comments
-    <hr>
-    <div id="comment-{{ post.post_id }}" post-id-data="{{ post.post_id }}" post-lvl="0">
+    {% comment %} {% include './comment_form.html' %} {% endcomment %}
 
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="Write a comment..." />
+            <input type="hidden" id="parent-id" name="parent_id" value="{{post.post_id}}">
+            <button type="submit" id="commentBtn">Submit Comment</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <div id="retractedBtn">
+    {% comment %} <button id="retract-{{ post.post_id }}" style="visibility:hidden" >... Retract comments </button> {% endcomment %}
+    </div>
+    <hr>
+    <div id="comment-{{ post.post_id }}" post-id-data-retract="{{ post.post_id }}" post-lvl="0">
     </div>    
-    <p>{{post.post_id}}</p>
-    <button id="{{ post.post_id }}" data-offset="0" data-post-id="{{ post.post_id }}">Load comments ... </button>
+    <button id="{{ post.post_id }}" data-offset="0" data-post-id="{{ post.post_id }}">Expand comments ... </button>
 </div>
 
+
 <script>
+
+    function addCommentForm() {
+        console.log("addCommentForm")}
+
+    {% comment %} function clearDiv(myDiv) {
+        while (myDiv.firstChild) {
+            myDiv.removeChild(myDiv.firstChild);
+        }
+    }
+
+    function retractComments(button) {
+        console.log("Retracted! ")
+        console.log("retraced btn: ", button.id)
+        button.style.visibility = "hidden" 
+        var parentDiv = button.parentNode.parentNode;
+        var parentId = parentDiv.id;
+        console.log("parent div", parentDiv)
+
+    } {% endcomment %}
 
     const limit = 5;
     {% comment %} const temp = document.getElementById("comments")
@@ -32,12 +70,12 @@
 
     {% comment %} document.getElementById('load-more-btn').style.display = 'none'; {% endcomment %}
     function loadComments(button) {
+        {% comment %} button.style.visibility="hidden"; {% endcomment %}
         let postId = button.getAttribute("data-post-id")
-        console.log("post id: ", postId)
+        {% comment %} let retractButton = document.getElementById(`retract-${postId}`);
+        retractButton.style.visibility = "visible"; {% endcomment %}
         let offset = parseInt(button.getAttribute('data-offset'));
-        console.log("offset: ", offset)
         const url = `/load-more-comments/${postId}/?offset=${offset}`;
-        console.log("url: ", url)
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -45,15 +83,24 @@
                 const parentlvl = parseInt(commentsDiv.getAttribute("post-lvl"))
                 data.comments.forEach(comment => {
                     const commentHtml = `
-                        <div class="comment" id="comment-${comment.comment_id}" post-lvl=${parentlvl+1}>
+                        <div class="comment" id="comment-${comment.comment_id}" post-lvl=${parentlvl+1} style="margin:1em">
                             <strong>${comment.author}</strong>
                             <strong>${comment.title}</strong>
+                            <small>${comment.created} ago </small>
                             <p>${comment.content}</p>
+                            <button id="addComForm"> Add comment </button>
                             <button id="${comment.comment_id}" data-offset="0" data-post-id="${comment.comment_id}" style="visibility: ${comment.reply_count > 0 ? 'visible' : 'hidden'};"">Load comments ... </button>
                             <hr>
                         </div>
                     `;
                     commentsDiv.innerHTML += commentHtml;
+                    console.log("commend id", comment.comment_id)
+{% comment %} 
+                    document.getElementById(comment.comment_id).addEventListener('click', function(event) {
+                        if (event.target) {
+                            addCommentForm()}
+                }); {% endcomment %}
+
                 });
                 
                 offset += limit;
@@ -65,6 +112,8 @@
                 } else {
                     document.getElementById(postId).style.display = 'none';
                 }
+
+                
             });
     }
     
@@ -74,6 +123,13 @@
             loadComments(event.target);
         }
     });
+
+    {% comment %} document.getElementById("retractedBtn").addEventListener('click', function(event) {
+        if (event.target) {
+            console.log(event.target)
+            retractComments(event.target);
+        }
+    }); {% endcomment %}
     
     // Załaduj pierwsze 5 komentarzy na starcie
     {% comment %} loadComments(); {% endcomment %}

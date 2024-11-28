@@ -1,0 +1,10 @@
+{% if request.user.is_authenticated %}
+<div class="comment-form">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="body" placeholder="Write a comment..." />
+        <input type="hidden" id="parent-id" name="parent_id" value="">
+        <button type="submit" id="commentBtn">Submit Comment</button>
+    </form>
+</div>
+{% endif %}

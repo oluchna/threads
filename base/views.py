@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.timesince import timesince
 from .models import Post, Tag
 from .forms import ThreadForm
 
@@ -29,6 +30,7 @@ def login_page(request):
 
         user = authenticate(request, username=username, password=password)
 
+        print("user: ", user)
         if user is not None:
             login(request, user)
             return redirect('home')
@@ -79,6 +81,7 @@ def home(request):
     tags = Tag.objects.all()
 
     threads_count = threads.count()
+
     context = {'threads': threads, 'tags': tags, 'threads_count': threads_count}
     return render(request, 'base/home.html', context=context)
 
@@ -94,7 +97,13 @@ def thread(request, thread_pk):
         posts = Post.objects.filter(parent_post=thread_pk)
 
     posts_count = posts.count()
-    context = {'thread': thread, 'posts': posts, 'posts_count': posts_count}
+
+    participants = thread.participats.all()
+
+    context = {'thread': thread, 'posts': posts, 'posts_count': posts_count, 'participants': participants}
+
+    if request.method == 'POST':
+        thread.participats.add(request.user)
 
     return render(request, 'base/thread.html', context=context)
 
@@ -102,10 +111,24 @@ def thread(request, thread_pk):
 def post(request, thread_pk, post_pk):
     post = Post.objects.get(post_id=post_pk)
     thread = Post.objects.get(post_id=thread_pk)
-    comments = Post.objects.filter(parent_post=post_pk)[:5]
-    context = {'post': post, 'thread': thread, 'comments': comments}
 
+    if request.method == "POST":
+        comment = Post.objects.create(
+            author = request.user, 
+            content = request.POST.get('body'), 
+            post_type = 'c', 
+            parent_post = Post.objects.get(post_id=request.POST.get("parent_id"))
+        )
+        return redirect('post', thread_pk=thread_pk, post_pk=post_pk)
+
+    context = {'post': post, 'thread': thread}
     return render(request, 'base/post.html', context=context)
+
+def user_profile(request, pk):
+    user = User.objects.get(id=pk)
+    threads = user.post_set.all()
+    context = {"user": user, "threads": threads}
+    return render(request, 'base/profile.html', context)
 
 @login_required(login_url='login')
 def create_thread(request):
@@ -116,6 +139,7 @@ def create_thread(request):
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.post_type = 't'
+            new_post.author = request.user
             new_post.save()
 
             return redirect("home")
@@ -207,7 +231,7 @@ def load_more_comments(request, post_id):
     offset = int(request.GET.get('offset', 0))
     limit = 5
 
-    all_comments = Post.objects.filter(parent_post=post_id)
+    all_comments = Post.objects.filter(parent_post=post_id).order_by("-created")
     comments = all_comments[offset:offset+limit]
 
     comments_content = []
@@ -218,6 +242,7 @@ def load_more_comments(request, post_id):
             'author': str(com.author), 
             'title': com.title,
             'content': com.content, 
+            'created': timesince(com.created),
             'comment_id': com.post_id, 
             'reply_count': reply_count
         })

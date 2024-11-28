@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.home, name="home"), 
     path('thread/<str:thread_pk>/', views.thread, name="thread"), 
     path('thread/<str:thread_pk>/post/<str:post_pk>/', views.post, name="post"), 
+    path('profile/<str:pk>/', views.user_profile, name="profile"),
     path('create-thread/', views.create_thread, name="create-thread"), 
     path('update-thread/<str:thread_pk>', views.update_thread, name="update-thread"), 
     path('create-post/', views.create_post, name="create-post"), 

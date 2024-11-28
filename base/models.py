@@ -37,6 +37,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     content = models.TextField()
     title = models.CharField(max_length=300, null=False, blank=False)
+    participats = models.ManyToManyField(User, related_name='participants', blank=True)
 
     POST_TYPE = (
         ('t', 'Thread'), 

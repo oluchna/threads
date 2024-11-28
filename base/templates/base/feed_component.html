@@ -1,0 +1,18 @@
+<div>
+    {% for thread in threads %}
+    <div>
+        {% if request.user == thread.author %}
+        <a href={% url 'update-thread' thread.post_id %}>Edit</a>
+        <a href={% url 'delete-post' thread.post_id %}>Delete</a>
+        {% endif %}
+        <a href="{% url 'profile' thread.author.id %}">@{{thread.author}} </a>
+        <h5>{{thread.post_id}} --- <a href="{% url 'thread' thread.post_id %}">{{thread.title}}</a></h5>
+        <p>
+            {% for tag in thread.tag.all %}
+            {{tag}}
+            {%endfor%}
+        </p>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
