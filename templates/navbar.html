@@ -1,23 +1,41 @@
 {% load static %}
-<div style="display:flex; align-items: center; flex-direction: row; justify-content:space-between; width:100%; height:40px; background-color:#FABC3F;">
+<div class="navbar">
     
-    <a href="/" style="margin:1em; display:flex; align-items: center; flex-direction: row; text-decoration:none;">
-        <img src="{% static 'images/logo.png' %}" height="35" margin-right=0.5em>
-        <p style="margin-left:0.5em; color:#ffffff">threadify</p>
-        </a>
+    <a href="/" class="logo">
+        <img class="logoImage" src="{% static 'images/logo.png' %}">
+        <p>threadify</p>
+    </a>
 
-    <form method="GET" action="{% url 'home' %}">
-        <input type="text" name="q" placeholder="Search threads..." />
+    <form class="searchForm" method="GET" action="{% url 'home' %}">
+        <input class="searchBar" type="text" name="q" placeholder="Search threads..." />
     </form>
 
-    <div style="display:flex; flex-direction: row; align-items: center; margin:1em ">
-
-    {% if request.user.is_authenticated %}
-    <p>Hello {{request.user}}</p>
-    <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}"> Login </a>
-    {% endif %}
-
+    <div class="navbarUserDiv">
+        {% if request.user.is_authenticated %}
+        <p>Hello, {{request.user}}!</p>
+        <div class="user-dropdown">
+            <img src="{% static 'images/userprofile.svg' %}" />
+            <div class="user-dropdown-content">
+                <div class="user-dropdown-option"> 
+                    <img src="{% static 'images/profile.svg' %}">
+                    <a href="{% url 'profile' user.id %}">My profile</a>
+                </div>
+                <hr> 
+                <div class="user-dropdown-option">
+                    <img src="{% static 'images/settings.svg' %}">
+                    <a href="{% url 'settings' user.id %}">Settings</a>
+                </div>
+                <hr>
+                <div class="user-dropdown-option">
+                    <img src="{% static 'images/logout.svg' %}">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <a class="loginA" href="{% url 'login' %}"> Login </a>  
+        
+        {% endif %}
     </div>
+
 </div>

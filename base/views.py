@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.timesince import timesince
 from .models import Post, Tag
 from .forms import ThreadForm
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 def login_page(request):
@@ -251,3 +252,15 @@ def load_more_comments(request, post_id):
 
     context = {'comments': comments_content, "more_comments": more_comments}
     return JsonResponse(context)
+
+
+def settings(request, pk):
+
+    logged_user_id = request.user.id
+
+    if logged_user_id is None:
+        return HttpResponseForbidden("You don't have access to this page.")
+    elif int(logged_user_id) != int(pk):
+        return HttpResponseForbidden("You don't have access to this page.")
+
+    return render(request, "base/settings.html")

@@ -14,5 +14,6 @@ urlpatterns = [
     path('create-post/', views.create_post, name="create-post"), 
     path('update-post/<str:post_pk>', views.update_post, name="update-post"), 
     path('delete-post/<str:post_pk>', views.delete_post, name="delete-post"), 
-    path('load-more-comments/<str:post_id>/', views.load_more_comments, name='load_more_comments')
+    path('load-more-comments/<str:post_id>/', views.load_more_comments, name='load_more_comments'), 
+    path('settings/<str:pk>/', views.settings, name="settings")
 ]
