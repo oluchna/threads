@@ -7,6 +7,7 @@
         {% endif %}
         <a href="{% url 'profile' thread.author.id %}">@{{thread.author}} </a>
         <h5>{{thread.post_id}} --- <a href="{% url 'thread' thread.post_id %}">{{thread.title}}</a></h5>
+        <h6>Participants: {{thread.participats.count}} </h6/>
         <p>
             {% for tag in thread.tag.all %}
             {{tag}}

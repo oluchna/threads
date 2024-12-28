@@ -2,15 +2,15 @@
 <div class="navbar">
     
     <a href="/" class="logo">
-        <img class="logoImage" src="{% static 'images/logo.png' %}">
+        <img class="logo-image" src="{% static 'images/logo.png' %}">
         <p>threadify</p>
     </a>
 
-    <form class="searchForm" method="GET" action="{% url 'home' %}">
-        <input class="searchBar" type="text" name="q" placeholder="Search threads..." />
+    <form class="search-form" method="GET" action="{% url 'home' %}">
+        <input class="search-bar" type="text" name="q" placeholder="Search threads..." />
     </form>
 
-    <div class="navbarUserDiv">
+    <div class="navbar-user-div">
         {% if request.user.is_authenticated %}
         <p>Hello, {{request.user}}!</p>
         <div class="user-dropdown">
@@ -33,7 +33,7 @@
             </div>
         </div>
         {% else %}
-        <a class="loginA" href="{% url 'login' %}"> Login </a>  
+        <a class="login-a" href="{% url 'login' %}"> Login </a>  
         
         {% endif %}
     </div>

@@ -31,10 +31,17 @@
     {% endfor %}
 </div>
 
-<form method="POST" action="">
-    {% csrf_token %}
-    <button type="submit"> + Join </button>
-</form>
+{% if user.is_authenticated and user not in thread.participats.all %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <button type="submit"> + Join </button>
+    </form>
+{% elif user in thread.participats.all%}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <button type="submit"> Unjoin </button>
+    </form>
+{% endif %}
 
 {% if posts_count == 0 %}
     <h5>No posts available</h5>

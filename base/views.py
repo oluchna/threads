@@ -81,9 +81,13 @@ def home(request):
         threads = Post.objects.filter(post_type="t").prefetch_related('tag')
     tags = Tag.objects.all()
 
+    tags_set = {}
+    for t in tags:
+        tags_set[t] = Post.objects.filter(post_type="t").filter(tag=t).count()
+
     threads_count = threads.count()
 
-    context = {'threads': threads, 'tags': tags, 'threads_count': threads_count}
+    context = {'threads': threads, 'tags': tags_set, 'threads_count': threads_count}
     return render(request, 'base/home.html', context=context)
 
 
@@ -104,7 +108,11 @@ def thread(request, thread_pk):
     context = {'thread': thread, 'posts': posts, 'posts_count': posts_count, 'participants': participants}
 
     if request.method == 'POST':
-        thread.participats.add(request.user)
+        if request.user not in thread.participats.all():
+            thread.participats.add(request.user)
+        elif request.user in thread.participats.all():
+            thread.participats.remove(request.user)
+
 
     return render(request, 'base/thread.html', context=context)
 

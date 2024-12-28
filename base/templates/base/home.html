@@ -1,25 +1,20 @@
+
 {% extends 'main.html' %}
 
 {% block content %}
 
-<style>
-    .home-container{
-        display:grid;
-        grid-template-columns:1fr 3fr 1fr;
-    }
-</style>
-
 <div class="home-container">
 
-    <div>
-        <h3>Browse categories</h3>
-        <hr>
+    <div class="browse-categories">
+        <h3>Browse tags</h3>
         <div>
-            <a href="{% url 'home'%}">All</a>
+            <a href="{% url 'home'%}" class="tag-browse"> &gt All</a>
+            <p> {{threads_count}}</p>
         </div>
-        {% for tag in tags %}
+        {% for tag, t_count in tags.items %}
         <div>
-            <a href="{% url 'home'%}?tag={{tag}}">{{tag}}</a>
+            <a href="{% url 'home'%}?tag={{tag}}" class="tag-browse"> &gt {{tag}}</a>
+            <p>{{t_count}}</p>
         </div>
         {% endfor %}
     </div>
@@ -42,4 +37,8 @@
     </div>
 
 </div>
+
+<script> 
+  
+</script>
 {% endblock %}
