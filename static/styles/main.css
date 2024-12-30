@@ -12,7 +12,7 @@ body{
 }
 
 hr {
-    width: 90%;
+    width: 100%;
     height: 1px;
     border: none;
     background-color: var(--light-grey);
@@ -136,6 +136,10 @@ hr {
     height: fit-content;
 }
 
+.browse-categories h3 {
+    font-weight: 400;
+}
+
 .browse-categories a {
     text-decoration: none;
     color: black;
@@ -163,4 +167,153 @@ hr {
     padding: 3px;
     background-color: var(--primary-color);
     margin: 0;
+    width:22px;
+    display: flex;
+    justify-content: center
+}
+
+.tag-browse-bolded {
+    font-weight: 600 !important;
+}
+
+.thread-board{
+    margin:  1.2em 1em 1.2em 1em;
+}
+
+.thread-board-header{
+    margin-top: 0.2em;
+}
+
+.thread-board-upper-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create-thread-btn {
+    margin-top: 1.2em;
+    text-decoration: none;
+    font-size: 12px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 5px;
+    padding: 3px 5px;
+
+}
+
+.thread-board-header .thread-board-upper-header h3{
+    font-weight: 400;
+    margin-bottom: 0.2em;
+}
+
+.available-threads-num {
+    font-weight: 400;
+    color: var(--gray-color);
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+/* .thread-border-header .hr {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: var(--light-grey);
+    color: var(--light-grey);
+    padding: 0;
+} */
+
+.thread-board-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.thread-title-content {
+    margin: 1em 0em;
+}
+
+.thread-title-content a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #000000;
+}
+
+.thread-title-content h5 {
+    margin: 0.5em 0em;
+    font-weight: 300;
+}
+
+.thread-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.thread-stats {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.thread-stats h6{
+    background-color: var(--light-grey);
+    border-radius: 5px;
+    padding: 2px 4px;
+    color: var(--secondary-color);
+    font-weight: 400;
+    margin-right: 0.4em;
+}
+
+.thread-info h6 {
+    margin: 0;
+}
+
+.thread-tags-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.thread-info p {
+    margin: 0;
+    background-color: var(--primary-color);
+    padding: 2px 4px;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    font-size: 10px;
+    margin-left: 0.4em;
+}
+
+.thread-upper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.thread-upper-right {
+    display: flex;
+    flex-direction: row;
+}
+
+.thread-upper-right h6 {
+    margin: 0;
+    font-weight: 400;
+    margin-left: 0.2em;
+}
+
+.thread-icons {
+    padding: 0em 0.15em;
+}
+
+.user-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    text-decoration: none;
+    color: #000000;
+    font-size: 12px;
+}
+
+.recent-activity {
+    margin: 1.2em;
 }

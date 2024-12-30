@@ -83,11 +83,11 @@ def home(request):
 
     tags_set = {}
     for t in tags:
-        tags_set[t] = Post.objects.filter(post_type="t").filter(tag=t).count()
+        tags_set[str(t)] = Post.objects.filter(post_type="t").filter(tag=t).count()
 
-    threads_count = threads.count()
+    threads_count = Post.objects.filter(post_type="t").prefetch_related('tag').count()
 
-    context = {'threads': threads, 'tags': tags_set, 'threads_count': threads_count}
+    context = {'threads': threads, 'tags': tags_set, 'threads_count': threads_count, "tag_name": str(tag_name) if str(tag_name) else "All"}
     return render(request, 'base/home.html', context=context)
 
 

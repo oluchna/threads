@@ -8,37 +8,53 @@
     <div class="browse-categories">
         <h3>Browse tags</h3>
         <div>
-            <a href="{% url 'home'%}" class="tag-browse"> &gt All</a>
-            <p> {{threads_count}}</p>
+            {% if tag_name == "All" %}
+                <a href="{% url 'home'%}" class="tag-browse-bolded"> &gt All</a>
+            {% else %}
+                <a href="{% url 'home'%}" class="tag-browse"> &gt All</a>
+            {% endif %}
+            {% if threads_count <= 99 %}
+                <p> {{threads_count}}</p>   
+            {% else %}
+                <p> +99 </p>
+            {% endif %}
         </div>
         {% for tag, t_count in tags.items %}
         <div>
-            <a href="{% url 'home'%}?tag={{tag}}" class="tag-browse"> &gt {{tag}}</a>
-            <p>{{t_count}}</p>
+            {% if tag|upper == tag_name|upper %}
+                <a href="{% url 'home'%}?tag={{tag}}" class="tag-browse-bolded"> &gt {{tag}}</a>
+            {% else %}
+                <a href="{% url 'home'%}?tag={{tag}}" class="tag-browse"> &gt {{tag}}</a>
+            {% endif %}
+            {% if t_count <= 99 %}
+            <p class={{tag}} id={{tag}}>{{t_count}}</p>
+            {% else %}
+            <p> +99 </p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
 
-    <div>
-        {% if threads_count == 0 %}
-            <h5>No threads available</h5> 
-        {% else %}
-            <h5>{{threads_count}} threads on the board</h5>
-        {% endif %}
-
-        <a href="{%url 'create-thread'%}"> Create thread </a>
+    <div class="thread-board">
+        <div class="thread-board-header">
+            <div class="thread-board-upper-header">
+                <h3>Threads</h3>
+                <a href="{%url 'create-thread'%}" class="create-thread-btn"> + Add thread </a>
+            </div>
+            {% if threads_count == 0 %}
+                <h5>No threads available</h5> 
+            {% else %}
+                <h5 class="available-threads-num">{{threads_count}} threads on the board</h5>
+            {% endif %}
+        </div>
         <hr>
         {% include 'base/feed_component.html' %}
     </div>
 
-    <div>
+    <div class="recent-activity">
         <h3>Recent activity</h3>
         to do 
     </div>
 
 </div>
-
-<script> 
-  
-</script>
 {% endblock %}
