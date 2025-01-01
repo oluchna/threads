@@ -31,8 +31,14 @@
 
         <div class="thread-info">
             <div class="thread-stats">
-                <h6>{{thread.participats.count}} users joined </h6>
-                <h6>12 posts </h6>
+                <h6>{{thread.participats.count}} 
+                    <img src="{% static 'images/user.svg' %}">
+                    joined </h6>
+                {% if thread.child_posts.count == 1 %}
+                    <h6>{{thread.child_posts.count}} post </h6>
+                {% else %}
+                    <h6>{{thread.child_posts.count}} posts </h6>
+                {% endif %}
             </div>
             <div class="thread-tags-div">
                 {% if thread.tag.all %}
