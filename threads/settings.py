@@ -140,6 +140,11 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
+# Media settings
+MEDIA_URL = '/media/'  # URL to access media files in development
+
+MEDIA_ROOT = BASE_DIR / 'media'  # Where uploaded files will be stored
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [

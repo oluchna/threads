@@ -289,6 +289,14 @@ hr {
     justify-content: space-between;
 }
 
+.profile-picture-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; /* Makes it a circle */
+    object-fit: cover; /* Ensures the image fits without distortion */
+    /* border: 2px solid #ccc; Optional: Add a border around the image */
+}
+
 .thread-upper-right {
     display: flex;
     flex-direction: row;

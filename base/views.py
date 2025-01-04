@@ -73,12 +73,12 @@ def home(request):
 
     if tag_name != "":
         tag_value = getattr(Tag.TagType, tag_name, None)
-        threads = Post.objects.filter(post_type="t").filter(tag__name=tag_value).prefetch_related('tag')
+        threads = Post.objects.filter(post_type="t").filter(tag__name=tag_value).prefetch_related('tag').select_related('author__profile')
     elif q != "":
         threads = Post.objects.filter(post_type="t").filter(
-            Q(title__icontains=q) | Q(content__icontains=q)).prefetch_related('tag')
+            Q(title__icontains=q) | Q(content__icontains=q)).prefetch_related('tag').select_related('author__profile')
     else: 
-        threads = Post.objects.filter(post_type="t").prefetch_related('tag')
+        threads = Post.objects.filter(post_type="t").prefetch_related('tag').select_related('author__profile')
     tags = Tag.objects.all()
 
     tags_set = {}

@@ -4,7 +4,11 @@
     <div>
         <div class="thread-upper">
             <a href="{% url 'profile' thread.author.id %}" class="user-icon">
+                {% if thread.author.profile.profile_picture %}
+                <img class="profile-picture-icon" src="{{ thread.author.profile.profile_picture.url }}" alt="{{ user.username }}">
+                {% else %}
                 <img src="{% static 'images/user-mock2.svg' %}">
+                {% endif %}
                 <p>@{{thread.author}} </p>
             </a>
             <div class="thread-upper-right">
