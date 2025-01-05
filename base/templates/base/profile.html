@@ -2,7 +2,9 @@
 
 {% block content %}
 
+<img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture-icon">
 <h1> {{user.username}} </h1>
+
 
 {% for t in threads%}
 <li> {{t.title}} </li>
