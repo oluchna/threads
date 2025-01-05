@@ -1,0 +1,33 @@
+{% load static %}
+
+<div class="recent-activity">
+    <div class="recent-activity-box">
+        <div class="recent-actvity-header">
+            <h4>RECENT ACTIVITIES</h4>
+        </div>
+        <div class="notifications">
+            {% for n in notifications %}
+                <div class="notification">
+                    <div class="date-div">
+                        <p class="noti-time-since-p">{{n.created|timesince }}</p>
+                    </div>
+                    <div class="notification-header"> 
+                        <a href="{% url 'profile' n.author.id %}" class="user-icon">
+                            {% if n.author.profile.profile_picture %}
+                                <img class="profile-picture-icon" src="{{ n.author.profile.profile_picture.url }}" alt="{{ user.username }}">
+                            {% else %}
+                                <img src="{% static 'images/user-mock2.svg' %}">
+                            {% endif %}
+                            <p class="notification-header-username">@{{n.author}} </p>
+                            
+                        </a>
+                    </div>
+                    <p class="noti-mark"> added comment in <a class="noti-a" href="{% url 'thread' n.post_id %}">x post</a> in <a class="noti-a"> y thread </a> sd dsdsdsd</p>
+                    <div class="noti-content">
+                        <p class="noti-content-p">content of notification sdbashjkbdas djashdbas bijasfbasjk bjsdfbsdj hjgdfljksd flsdjkfhsd ljfhgsd hdfb hd h dh</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

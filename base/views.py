@@ -87,7 +87,9 @@ def home(request):
 
     threads_count = Post.objects.filter(post_type="t").prefetch_related('tag').count()
 
-    context = {'threads': threads, 'tags': tags_set, 'threads_count': threads_count, "tag_name": str(tag_name) if str(tag_name) else "All"}
+    notifications = threads[0:2] #mock
+
+    context = {'threads': threads, 'tags': tags_set, 'threads_count': threads_count, "tag_name": str(tag_name) if str(tag_name) else "All", "notifications": notifications}
     return render(request, 'base/home.html', context=context)
 
 
