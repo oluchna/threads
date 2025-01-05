@@ -7,8 +7,8 @@
         {% csrf_token %}
         {{form.as_p}}
 
-        <input type="submit" value="Submit" />
-
+        {% comment %} <input type="submit" value="Submit" /> {% endcomment %}
+        <button type="submit">Create post</button>
     </form>
 </div>
 

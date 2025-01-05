@@ -146,9 +146,10 @@ def create_thread(request):
     if request.method == "POST":
         form = ThreadForm(request.POST)
         if form.is_valid():
-            new_post = form.save(commit=False)
+            new_post = form.save()
             new_post.post_type = 't'
             new_post.author = request.user
+            new_post.participats.add(request.user)
             new_post.save()
 
             return redirect("home")
