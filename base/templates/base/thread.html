@@ -15,7 +15,9 @@
 
 <h1>{{thread.title}}</h1>
 
-<h2> {{thread.content}} </h2>
+<div>
+    {{ thread.content|safe }}
+</div>
 
 <small>
     {% for tag in thread.tag.all %}

@@ -3,11 +3,9 @@
 {% block content%}
 
 <div>
-    <form method="POST" action="">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.as_p}}
-
-        {% comment %} <input type="submit" value="Submit" /> {% endcomment %}
         <button type="submit">Upload</button>
     </form>
 </div>

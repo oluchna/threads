@@ -52,7 +52,7 @@ class Tag(models.Model):
 class Post(models.Model):
     post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    content = models.TextField()
+    content = models.TextField()    
     title = models.CharField(max_length=300, null=False, blank=False)
     participats = models.ManyToManyField(User, related_name='participants', blank=True)
 

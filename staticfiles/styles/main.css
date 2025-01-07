@@ -1,0 +1,421 @@
+:root {
+    --primary-color: #FABC3F;
+    --secondary-color: #FFFFFF;
+    --gray-color: #545454;
+    --light-grey: #CECCCC;
+    --link-blue: #2D93CC;
+    --very-light-grey: #DEDEDE;
+}
+
+body{
+    background-color: var(--secondary-color);
+    font-family: "Inter";
+    font-weight: 300;
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: var(--light-grey);
+    color: var(--light-grey);
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center; 
+    flex-direction: row; 
+    justify-content:space-between; 
+    width:100%; 
+    height:40px;
+}
+
+.logo {
+    margin: 0.7em; 
+    display: flex; 
+    align-items: center; 
+    flex-direction: row; 
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.logo-image {
+    height: 35px;
+    margin-right: 0.5em
+}
+
+.navbar-user-div {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content:space-between;
+    gap: 10px; 
+    margin: 1em;
+    font-size: 15px;
+    color: var(--secondary-color);
+}
+
+.login-a {
+    text-decoration: none;
+    font-weight: 400;
+    padding: 4px;
+    color: var(--secondary-color);
+}
+
+.login-a:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.search-bar {
+    width: 200px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 30px;
+    display: block;
+    padding: 6px 4px 6px 30px;
+    outline: none;
+    background: var(--secondary-color) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath fill='%23545454' d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 8px center;
+}
+
+.search-bar:focus {
+    border: 1px solid var(--gray-color);
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--secondary-color);
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.25);
+    border-radius: 5px;
+    padding: 8px 10px;
+    z-index: 1;
+    right: 1px; 
+    top: 100%; 
+    font-size: 10px;
+  }
+  
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+  }
+
+.user-dropdown-content a {
+    text-decoration: none;
+    color: black;
+}
+
+.user-dropdown-content a:hover {
+    font-weight: 500;
+}
+
+.user-dropdown-option {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap:5px;
+}
+
+.home-container {
+    display: grid !important;
+    grid-template-columns: 2fr 4fr 2fr;
+}
+
+.browse-categories {
+    margin: 1.5em;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.browse-categories h3 {
+    font-weight: 400;
+}
+
+.browse-categories a {
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 0.5em;
+}
+
+.browse-categories a:hover {
+    font-weight: 600;
+}
+
+.browse-categories div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.25em;
+}
+
+.browse-categories p {
+    color: var(--secondary-color);
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 3px;
+    background-color: var(--primary-color);
+    margin: 0;
+    width:22px;
+    display: flex;
+    justify-content: center
+}
+
+.tag-browse-bolded {
+    font-weight: 600 !important;
+}
+
+.thread-board{
+    margin:  1.2em 1em 1.2em 1em;
+}
+
+.thread-board-header{
+    margin-top: 0.2em;
+}
+
+.thread-board-upper-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create-thread-btn {
+    margin-top: 1.2em;
+    text-decoration: none;
+    font-size: 12px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 5px;
+    padding: 3px 5px;
+
+}
+
+.thread-board-header .thread-board-upper-header h3{
+    font-weight: 400;
+    margin-bottom: 0.2em;
+}
+
+.available-threads-num {
+    font-weight: 400;
+    color: var(--gray-color);
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+/* .thread-border-header .hr {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: var(--light-grey);
+    color: var(--light-grey);
+    padding: 0;
+} */
+
+.thread-board-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.thread-title-content {
+    margin: 1em 0em;
+}
+
+.thread-title-content a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #000000;
+}
+
+.thread-title-content h5 {
+    margin: 0.5em 0em;
+    font-weight: 300;
+}
+
+.thread-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.thread-stats {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.thread-stats h6{
+    background-color: var(--light-grey);
+    border-radius: 5px;
+    padding: 2px 4px;
+    color: var(--secondary-color);
+    font-weight: 400;
+    margin-right: 0.4em;
+}
+
+.thread-info h6 {
+    margin: 0;
+}
+
+.thread-tags-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.thread-info p {
+    margin: 0;
+    background-color: var(--primary-color);
+    padding: 2px 4px;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    font-size: 10px;
+    margin-left: 0.4em;
+}
+
+.thread-upper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-picture-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; /* Makes it a circle */
+    object-fit: cover; /* Ensures the image fits without distortion */
+    /* border: 2px solid #ccc; Optional: Add a border around the image */
+}
+
+.thread-upper-right {
+    display: flex;
+    flex-direction: row;
+}
+
+.thread-upper-right h6 {
+    margin: 0;
+    font-weight: 400;
+    margin-left: 0.2em;
+}
+
+.thread-icons {
+    padding: 0em 0.15em;
+}
+
+.user-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    text-decoration: none;
+    color: #000000;
+    font-size: 12px;
+}
+
+.recent-activity {
+    margin: 1.2em;
+}
+
+.recent-activity-box {
+    max-height: 500px;
+    border-radius: 10px;
+    /* border-style: solid;
+    border-width: 1px; */
+    /* border-color: var(--light-grey); */
+    margin-top: 1.5em;
+    max-width: 230px;
+    overflow: hidden;
+}
+
+.recent-actvity-header {
+    background-color: var(--primary-color);
+    margin: 0;
+    padding: 0.4em 0.7em 0.4em 0.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 40px;
+    
+}
+
+.notifications {
+    border-bottom: 1px solid var(--light-grey);
+    border-left: 1px solid var(--light-grey);
+    border-right: 1px solid var(--light-grey);
+    border-radius: 0 0 10px 10px;
+    overflow: auto;
+}
+
+.recent-activity .recent-actvity-header  h4 {
+    font-weight: 300;
+    color: var(--secondary-color);
+    font-size: 14px;
+    margin: 0;
+}
+
+.notification {
+    margin: 0.5em ;
+    border-radius: 10px;
+    background-color: var(--very-light-grey);
+    padding: 0.5em;
+ 
+}
+
+.notification-header img {
+    width: 20px;
+    height: 20px;
+}
+
+.notification-header-username{
+    font-size: 10px;
+    margin: 0;
+}
+
+.date-div {
+    margin: 0;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.noti-time-since-p {
+    font-size: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.noti-mark {
+    font-size: 8px;
+    margin-left: 2.8em;
+    margin-top: 0;
+    margin-right: 0.2em;
+}
+
+.noti-content {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    margin: 0.2em 0.2em 0em 1.4em;
+}
+
+.noti-content-p {
+    font-size: 8px;
+    padding: 0.8em;
+    margin-bottom: 0.1em;
+}
+
+.noti-a {
+    color: var(--link-blue);
+    text-decoration: none;
+}
