@@ -1,13 +1,25 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content%}
 
-<div>
+<div class="create-thread-div"> 
+    <h3> Create thread </h3>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Upload</button>
+        <div class="upper-form">
+            {{form.title}}
+            <hr>
+            {{form.content}}
+            <hr>
+            {{form.tag}}
+        </div>
+        <div class="form-btn-div">
+            <button type="submit" class="upload-p-btn">Upload</button>
+        </div>
     </form>
 </div>
+
+
 
 {% endblock %}

@@ -171,7 +171,7 @@ def create_post(request):
     if request.method == "POST":
         form = ThreadForm(request.POST)
         if form.is_valid():
-            new_post = form.save(commit=False)
+            new_post = form.save()
             new_post.post_type = 'p'
             new_post.parent_type = 't'
             new_post.parent_post = Post.objects.get(post_id=thread_pk)

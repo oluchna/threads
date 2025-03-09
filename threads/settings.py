@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'django_summernote', 
+    'drf_yasg',
     ]
 
 MIDDLEWARE = [
@@ -157,7 +158,7 @@ AUTHENTICATION_BACKENDS = [
 
 SUMMERNOTE_CONFIG = {
     'iframe': False, 
-    'width': '80%',  
+    'width': '100%',  
     'height': '480',  
     'toolbar': [
         ['style', ['style']],
@@ -169,4 +170,16 @@ SUMMERNOTE_CONFIG = {
         ['insert', ['link', 'picture', 'video']],
         ['view', ['fullscreen', 'codeview', 'help']],
     ],
+}
+
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False, 
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',  
+            'in': 'header',    
+            'name': 'Authorization', 
+        }
+    },
 }
